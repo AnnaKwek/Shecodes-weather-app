@@ -108,9 +108,41 @@ city.value = "";
 }
 
 function showCityTemp (response) {
+  console.log(response.data);
   let cityTemp = Math.round(response.data.main.temp);
   let degrees = document.querySelector ("#degrees");
   degrees.innerHTML = cityTemp;
+  let rain = document.querySelector("#mm");
+  rain.innerHTML = (response.data.main.humidity);
+  let wind = document.querySelector("#wind");
+  wind.innerHTML = Math.round(response.data.wind.speed);
+
+  let windDirection = document.querySelector("#direction");
+  
+  if (response.data.wind.deg < 45) {
+  windDirection.innerHTML = "N";
+  }
+  else if ((response.data.wind.deg >= 45) && (response.data.wind.deg <90)) {
+    windDirection.innerHTML = "NE";
+  }
+    else if ((response.data.wind.deg >= 90) && (response.data.wind.deg <135)) {
+      windDirection.innerHTML = "E";
+    }
+    else if ((response.data.wind.deg >= 135) && (response.data.wind.deg <180)) {
+      windDirection.innerHTML = "SE";
+    }
+    else if ((response.data.wind.deg >= 180) && (response.data.wind.deg <225)) {
+      windDirection.innerHTML = "S";
+    }
+    else if ((response.data.wind.deg >= 225) && (response.data.wind.deg <270)) {
+      windDirection.innerHTML = "SW";
+    }
+    else if ((response.data.wind.deg >= 270) && (response.data.wind.deg <315)) {
+      windDirection.innerHTML = "W";
+    }
+    else {
+      windDirection.innerHTML = "NW";
+    }
 }
 
 //Add a Current Location button. 
@@ -144,6 +176,10 @@ function displayCLTemp (response) {
   let tempCL = Math.round(response.data.main.temp);
   let replaceCLTemp = document.querySelector("#degrees");
   replaceCLTemp.innerHTML = tempCL;
+  let rain = document.querySelector("#mm");
+  rain.innerHTML = (response.data.main.humidity);
+  let wind = document.querySelector("#wind");
+  wind.innerHTML = Math.round(response.data.wind.speed);
 }
 
 
