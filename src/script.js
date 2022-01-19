@@ -40,15 +40,15 @@ currentTime.innerHTML = Time;
 
 // Add a search engine, when searching for a city (i.e. Paris), 
 // display the city name on the page after the user submits the form.
-function replaceByCity (event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#city-input");
-  let replaceCity = document.querySelector("h1");
-  replaceCity.innerHTML = cityInput.value;
-}
+//function replaceByCity (event) {
+  //event.preventDefault();
+  //let cityInput = document.querySelector("#city-input");
+  //let replaceCity = document.querySelector("h1");
+  //replaceCity.innerHTML = cityInput.value;
+//}
 
-let cityForm = document.querySelector("#city-form");
-cityForm.addEventListener ("submit", replaceByCity);
+//let cityForm = document.querySelector("#city-form");
+//cityForm.addEventListener ("submit", replaceByCity);
 
 //Bonus Feature: Display a fake temperature (i.e 17) in Celsius and add a link to convert it to Fahrenheit. 
 // When clicking on it, it should convert the temperature to Fahrenheit. 
@@ -94,6 +94,7 @@ let apiKey = "a90b829ff3b4e9e89e1ee2a16af1166b";
 let units = "metric";
 let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather"
 
+let cityForm = document.querySelector("#city-form");
 cityForm.addEventListener ("submit", logCity);
 
 function logCity (event) {
@@ -109,6 +110,11 @@ city.value = "";
 
 function showCityTemp (response) {
   console.log(response.data);
+  
+  let cityCLName = response.data.name;
+  let replaceCity = document.querySelector("h1");
+  replaceCity.innerHTML = cityCLName;
+  
   let cityTemp = Math.round(response.data.main.temp);
   let degrees = document.querySelector ("#degrees");
   degrees.innerHTML = cityTemp;
@@ -164,23 +170,7 @@ function logPosition (position) {
   let posApiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
   let positionApi = `${posApiEndpoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
 
-  axios.get(positionApi).then(displayCLTemp);
+  axios.get(positionApi).then(showCityTemp);
 }
-
-function displayCLTemp (response) {
-
-  let cityCLName = response.data.name;
-  let replaceCity = document.querySelector("h1");
-  replaceCity.innerHTML = cityCLName;
-  
-  let tempCL = Math.round(response.data.main.temp);
-  let replaceCLTemp = document.querySelector("#degrees");
-  replaceCLTemp.innerHTML = tempCL;
-  let rain = document.querySelector("#mm");
-  rain.innerHTML = (response.data.main.humidity);
-  let wind = document.querySelector("#wind");
-  wind.innerHTML = Math.round(response.data.wind.speed);
-}
-
 
 
