@@ -123,6 +123,11 @@ function showCityTemp (response) {
   let wind = document.querySelector("#wind");
   wind.innerHTML = Math.round(response.data.wind.speed);
 
+  let tempIcon = document.querySelector ("#tempIcon");
+  let tempIconVar = (response.data.weather[0].icon);
+  tempIcon.setAttribute ("src", `http://openweathermap.org/img/wn/${tempIconVar}@2x.png`);
+  
+
   let windDirection = document.querySelector("#direction");
   
   if (response.data.wind.deg < 45) {
