@@ -127,6 +127,8 @@ function showCityTemp (response) {
   let tempIconVar = (response.data.weather[0].icon);
   tempIcon.setAttribute ("src", `http://openweathermap.org/img/wn/${tempIconVar}@2x.png`);
   
+  let forecast = document.querySelector ("#weatherDescription");
+  forecast.innerHTML = (response.data.weather[0].description);
 
   let windDirection = document.querySelector("#direction");
   
@@ -155,6 +157,8 @@ function showCityTemp (response) {
       windDirection.innerHTML = "NW";
     }
 }
+
+
 
 //Add a Current Location button. 
 //When clicking on it, it uses the Geolocation API to get your GPS coordinates
