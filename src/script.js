@@ -90,7 +90,7 @@ switchDegree.addEventListener("click", convertTemp);
 // it should display the name of the city on the result page 
 // and the current temperature of the city.
 
-let apiKey = "a90b829ff3b4e9e89e1ee2a16af1166b";
+let apiKey = "98cce09f1dbb7a1622c5c8f8deebddd8";
 let units = "metric";
 let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather"
 
@@ -104,13 +104,11 @@ function logCity (event) {
   
   let apiUrl = `${apiEndpoint}?q=${cityInput}&units=${units}&appid=${apiKey}`;
 
-axios.get(apiUrl).then(showCityTemp);
-city.value = "";
+  axios.get(apiUrl).then(showCityTemp);
+  city.value = "";
 }
 
 function showCityTemp (response) {
-  console.log(response.data);
-  
   let cityCLName = response.data.name;
   let replaceCity = document.querySelector("h1");
   replaceCity.innerHTML = cityCLName;
@@ -127,8 +125,8 @@ function showCityTemp (response) {
   let tempIconVar = (response.data.weather[0].icon);
   tempIcon.setAttribute ("src", `http://openweathermap.org/img/wn/${tempIconVar}@2x.png`);
   
-  let forecast = document.querySelector ("#weatherDescription");
-  forecast.innerHTML = (response.data.weather[0].description);
+  let weatherDescription = document.querySelector ("#weatherDescription");
+  weatherDescription.innerHTML = (response.data.weather[0].description);
 
   let windDirection = document.querySelector("#direction");
   
@@ -156,6 +154,7 @@ function showCityTemp (response) {
     else {
       windDirection.innerHTML = "NW";
     }
+    getForecast();
 }
 
 
@@ -182,4 +181,22 @@ function logPosition (position) {
   axios.get(positionApi).then(showCityTemp);
 }
 
+//forecast
+function getForecast() {
+  //city is niet de input van de form, maar de city die in de functie 'ShowCityTemp' is geplaatst.
+  let city = document.querySelector ("#city-input");
+  let cityInput = city.value;
 
+  let forecastDays = 7;
+  let forecastApi = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput}&cnt=${forecastDays}&appid=${apiKey}&units=${units}`;
+
+  axios.get(forecastApi).then(showForecast);
+}
+
+function showForecast (response) {
+  console.log(response);
+
+  let day=document.querySelector("#monday");
+  day.innerHTML=(response.data.list[0].temp.day);
+
+}
