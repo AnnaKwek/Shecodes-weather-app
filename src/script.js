@@ -193,16 +193,18 @@ function getForecast(coordinates) {
 
 function showForecast(response) {
   console.log(response.data);
+  let forecastDays = (response.data.daily);
+
 let forecast = document.querySelector("#forecast");
 let forecastHTML = `<div class="row">`;
-let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-days.forEach(function(day) {
+
+forecastDays.forEach(function(forecastDay) {
 forecastHTML = forecastHTML + `
 
 <div class="col weekday" >
-${day} <br>
-⛅ <br>
-15⁰C
+${forecastDay.dt} <br>
+${forecastDay.weather[0].icon} <br>
+${Math.round(forecastDay.temp.day)}⁰C
 
 </div>`;
 });
