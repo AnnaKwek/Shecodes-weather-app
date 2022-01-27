@@ -154,7 +154,7 @@ function showCityTemp (response) {
     else {
       windDirection.innerHTML = "NW";
     }
-    getForecast();
+   
 }
 
 
@@ -182,21 +182,24 @@ function logPosition (position) {
 }
 
 //forecast
-function getForecast() {
-  //city is niet de input van de form, maar de city die in de functie 'ShowCityTemp' is geplaatst.
-  let city = document.querySelector ("#city-input");
-  let cityInput = city.value;
+function showForecast() {
+let forecast = document.querySelector("#forecast");
+let forecastHTML = `<div class="row">`;
+let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+days.forEach(function(day) {
+forecastHTML = forecastHTML + `
 
-  let forecastDays = 7;
-  let forecastApi = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput}&cnt=${forecastDays}&appid=${apiKey}&units=${units}`;
+<div class="col weekday" >
+${day} <br>
+⛅ <br>
+15⁰C
 
-  axios.get(forecastApi).then(showForecast);
+</div>`;
+});
+
+forecastHTML= forecastHTML + `</div>`;
+forecast.innerHTML = forecastHTML;
+
 }
 
-function showForecast (response) {
-  console.log(response);
-
-  let day=document.querySelector("#monday");
-  day.innerHTML=(response.data.list[0].temp.day);
-
-}
+showForecast();
