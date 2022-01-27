@@ -109,6 +109,7 @@ function logCity (event) {
 }
 
 function showCityTemp (response) {
+  
   let cityCLName = response.data.name;
   let replaceCity = document.querySelector("h1");
   replaceCity.innerHTML = cityCLName;
@@ -155,6 +156,7 @@ function showCityTemp (response) {
       windDirection.innerHTML = "NW";
     }
    
+    getForecast(response.data.coord);
 }
 
 
@@ -182,7 +184,15 @@ function logPosition (position) {
 }
 
 //forecast
-function showForecast() {
+function getForecast(coordinates) {
+  let lon = (coordinates.lon);
+  let lat = (coordinates.lat);
+  let forecastAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+  axios.get(forecastAPI).then(showForecast);
+}
+
+function showForecast(response) {
+  console.log(response.data);
 let forecast = document.querySelector("#forecast");
 let forecastHTML = `<div class="row">`;
 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -202,4 +212,3 @@ forecast.innerHTML = forecastHTML;
 
 }
 
-showForecast();
