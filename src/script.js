@@ -185,6 +185,7 @@ function logPosition (position) {
 
 //forecast
 function getForecast(coordinates) {
+  
   let lon = (coordinates.lon);
   let lat = (coordinates.lat);
   let forecastAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
@@ -192,7 +193,7 @@ function getForecast(coordinates) {
 }
 
 function showForecast(response) {
-  console.log(response.data);
+  console.log(response.data.daily);
   let forecastDays = (response.data.daily);
 
 let forecast = document.querySelector("#forecast");
@@ -203,7 +204,10 @@ forecastHTML = forecastHTML + `
 
 <div class="col weekday" >
 ${forecastDay.dt} <br>
-${forecastDay.weather[0].icon} <br>
+<img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+alt=""
+width ="42"
+/>  <br>
 ${Math.round(forecastDay.temp.day)}⁰C
 
 </div>`;
