@@ -201,17 +201,18 @@ return ForecastDays[forecastDay];
 }
 
 function showForecast(response) {
-  console.log(response.data.daily);
-  let forecastDays = (response.data.daily);
+let forecastDays = (response.data.daily);
 
 let forecast = document.querySelector("#forecast");
 let forecastHTML = `<div class="row">`;
 
-forecastDays.forEach(function(forecastDay) {
+forecastDays.forEach(function(forecastDay, index) {
+  if (index < 7) {
 forecastHTML = forecastHTML + `
 
 <div class="col weekday" >
 ${formatForecastDay (forecastDay.dt)} <br>
+
 <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
 alt=""
 width ="42"
@@ -219,6 +220,7 @@ width ="42"
 ${Math.round(forecastDay.temp.day)}⁰C
 
 </div>`;
+  }
 });
 
 forecastHTML= forecastHTML + `</div>`;
