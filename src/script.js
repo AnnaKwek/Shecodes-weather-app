@@ -192,6 +192,14 @@ function getForecast(coordinates) {
   axios.get(forecastAPI).then(showForecast);
 }
 
+function formatForecastDay (timestamp) {
+let forecastDate = new Date(timestamp * 1000);
+let forecastDay = forecastDate.getDay();
+let ForecastDays = ["Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat"]
+
+return ForecastDays[forecastDay];
+}
+
 function showForecast(response) {
   console.log(response.data.daily);
   let forecastDays = (response.data.daily);
@@ -203,7 +211,7 @@ forecastDays.forEach(function(forecastDay) {
 forecastHTML = forecastHTML + `
 
 <div class="col weekday" >
-${forecastDay.dt} <br>
+${formatForecastDay (forecastDay.dt)} <br>
 <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
 alt=""
 width ="42"
