@@ -96,6 +96,8 @@ let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather"
 
 let cityForm = document.querySelector("#city-form");
 cityForm.addEventListener ("submit", logCity);
+let searchButton = document.querySelector("#searchButton");
+searchButton.addEventListener ("click", logCity);
 
 function logCity (event) {
   event.preventDefault ();
@@ -109,7 +111,9 @@ function logCity (event) {
 }
 
 function showCityTemp (response) {
-  
+  if (temperatureUnit === "F") {
+    switchToCel ();
+  }
   let cityCLName = response.data.name;
   let replaceCity = document.querySelector("h1");
   replaceCity.innerHTML = cityCLName;
